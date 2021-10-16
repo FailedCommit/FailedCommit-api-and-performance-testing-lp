@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: ItenerariesSearchAppIT
 -------------------------------------------------------------------------------
-Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 13.128 s - in ItenerariesSearchAppIT
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 12.75 s - in ItenerariesSearchAppIT

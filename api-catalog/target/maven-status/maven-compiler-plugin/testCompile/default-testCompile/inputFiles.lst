@@ -2,3 +2,4 @@
 /Users/mkumar/Projects/manning/api-testing/api-catalog/src/test/java/com/twa/flights/api/catalog/controller/DocumentationControllerTest.java
 /Users/mkumar/Projects/manning/api-testing/api-catalog/src/test/java/com/twa/flights/api/catalog/controller/CatalogControllerTest.java
 /Users/mkumar/Projects/manning/api-testing/api-catalog/src/test/java/com/twa/flights/api/catalog/configuration/SwaggerConfigurationTest.java
+/Users/mkumar/Projects/manning/api-testing/api-catalog/src/it/java/AppIT.java
