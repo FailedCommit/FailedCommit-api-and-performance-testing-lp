@@ -1,25 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: AppIT
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 13.568 s <<< FAILURE! - in AppIT
-runAllTests[1][1]  Time elapsed: 1.359 s  <<< FAILURE!
-org.opentest4j.AssertionFailedError: 
-status code was: 404, expected: 200, response time in milliseconds: 102, url: http://127.0.0.1:58416/api/flights/itineraries-search/city/BUE, response: 
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-<title>Error 404 Not Found</title>
-</head>
-<body><h2>HTTP ERROR 404 Not Found</h2>
-<table>
-<tr><th>URI:</th><td>/api/flights/itineraries-search/city/BUE</td></tr>
-<tr><th>STATUS:</th><td>404</td></tr>
-<tr><th>MESSAGE:</th><td>Not Found</td></tr>
-<tr><th>SERVLET:</th><td>-</td></tr>
-</table>
-
-</body>
-</html>
-
-classpath:cities/city.feature:11
-
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 13.896 s - in AppIT

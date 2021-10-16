@@ -10,7 +10,8 @@
     {
       "name": "connector.catalog.connection-timeout",
       "type": "java.lang.Long",
-      "sourceType": "com.twa.flights.api.provider.beta.connector.configuration.CatalogConnectorConfiguration"
+      "sourceType": "com.twa.flights.api.provider.beta.connector.configuration.CatalogConnectorConfiguration",
+      "defaultValue": 0
     },
     {
       "name": "connector.catalog.host",
@@ -20,12 +21,14 @@
     {
       "name": "connector.catalog.read-timeout",
       "type": "java.lang.Long",
-      "sourceType": "com.twa.flights.api.provider.beta.connector.configuration.CatalogConnectorConfiguration"
+      "sourceType": "com.twa.flights.api.provider.beta.connector.configuration.CatalogConnectorConfiguration",
+      "defaultValue": 0
     },
     {
       "name": "connector.catalog.response-timeout",
       "type": "java.lang.Long",
-      "sourceType": "com.twa.flights.api.provider.beta.connector.configuration.CatalogConnectorConfiguration"
+      "sourceType": "com.twa.flights.api.provider.beta.connector.configuration.CatalogConnectorConfiguration",
+      "defaultValue": 0
     }
   ],
   "hints": []

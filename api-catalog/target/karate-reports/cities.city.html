@@ -22,20 +22,20 @@
       <img src="karate-logo.svg" alt="Karate"/>
     </a>
     <div class="nav-count">
-      <div id="nav-pass" class="bg-success">0</div>
-      <div id="nav-fail" class="bg-danger">1</div>
+      <div id="nav-pass" class="bg-success">1</div>
+      <div id="nav-fail" class="bg-danger">0</div>
     </div>
   </div>
   <div id="nav-type">
     <div>Scenarios</div>
   </div>         
   <div id="nav-date">
-    <div>2021-10-16 02:51:44 PM</div>
+    <div>2021-10-16 03:30:03 PM</div>
   </div>        
 </div>
 
         <div class="nav-container">
-          <div class="nav-item failed">
+          <div class="nav-item passed">
             <a href="#[1:6]"><span>[1:6]</span> <span>City OK</span></a>
           </div>
         </div>
@@ -46,7 +46,7 @@
           <a href="karate-tags.html">Tags</a><span class="feature-label">|</span>
           <span class="feature-label">Feature:</span>
           <span class="feature-path">cities/city.feature</span><span class="feature-label">|</span>
-          <span class="feature-name">Catalog Cities</span>
+          <span class="feature-name">Catalog</span>
           <span class="feature-description"></span>
         </div>
         <div class="scenario">
@@ -61,8 +61,8 @@
                 <span></span>
               </div>
             </div>
-            <div class="scenario-time failed">
-              <span>ms:</span>&nbsp;<span>291</span>
+            <div class="scenario-time passed">
+              <span>ms:</span>&nbsp;<span>834</span>
             </div>
           </div>
           <div class="step-row">
@@ -110,10 +110,10 @@
       <div class="step-ref passed">7</div>
       
       <div class="step-cell passed">
-        <span>*</span>&nbsp;<span>def catalogRes = read(&#39;response/response.json&#39;)</span>
+        <span>*</span>&nbsp;<span>def catalog_response = read(&#39;response/catalog_response_success.json&#39;)</span>
       </div>
     </div>
-    <div class="time-cell passed">25</div>
+    <div class="time-cell passed">28</div>
   </div>
 
    
@@ -169,7 +169,7 @@
         <span>When</span>&nbsp;<span>method GET</span>
       </div>
     </div>
-    <div class="time-cell passed">264</div>
+    <div class="time-cell passed">793</div>
   </div>
 
    
@@ -191,13 +191,13 @@
 
   <div class="step-row">
     <div class="step-container" id="0.11">
-      <div class="step-ref failed">11</div>
+      <div class="step-ref passed">11</div>
       
-      <div class="step-cell failed">
+      <div class="step-cell passed">
         <span>Then</span>&nbsp;<span>status 200</span>
       </div>
     </div>
-    <div class="time-cell failed">0</div>
+    <div class="time-cell passed">0</div>
   </div>
 
    
@@ -206,27 +206,7 @@
 
   
 
-  <div class="preformatted" data-parent="0.11">14:51:44.004 classpath:cities/city.feature:11
-Then status 200
-status code was: 404, expected: 200, response time in milliseconds: 102, url: http://127.0.0.1:58416/api/flights/itineraries-search/city/BUE, response: 
-&lt;html&gt;
-&lt;head&gt;
-&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html;charset=utf-8&quot;/&gt;
-&lt;title&gt;Error 404 Not Found&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;&lt;h2&gt;HTTP ERROR 404 Not Found&lt;/h2&gt;
-&lt;table&gt;
-&lt;tr&gt;&lt;th&gt;URI:&lt;/th&gt;&lt;td&gt;/api/flights/itineraries-search/city/BUE&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;th&gt;STATUS:&lt;/th&gt;&lt;td&gt;404&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;th&gt;MESSAGE:&lt;/th&gt;&lt;td&gt;Not Found&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;th&gt;SERVLET:&lt;/th&gt;&lt;td&gt;-&lt;/td&gt;&lt;/tr&gt;
-&lt;/table&gt;
-
-&lt;/body&gt;
-&lt;/html&gt;
-
-classpath:cities/city.feature:11
-</div>   
+     
 
   
 
@@ -239,13 +219,13 @@ classpath:cities/city.feature:11
 
   <div class="step-row">
     <div class="step-container" id="0.12">
-      <div class="step-ref skipped">12</div>
+      <div class="step-ref passed">12</div>
       
-      <div class="step-cell skipped">
-        <span>Then</span>&nbsp;<span>match response == catalogRes</span>
+      <div class="step-cell passed">
+        <span>Then</span>&nbsp;<span>match response == catalog_response</span>
       </div>
     </div>
-    <div class="time-cell skipped">0</div>
+    <div class="time-cell passed">11</div>
   </div>
 
    

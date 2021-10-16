@@ -24,14 +24,14 @@ import io.swagger.v3.oas.annotations.Hidden;
     @GetMapping
     public void redirectToDocumentation(HttpServletResponse response) {
         try {
-<span class="nc" id="L27">            response.sendRedirect(&quot;swagger-ui.html&quot;);</span>
-<span class="nc" id="L28">        } catch (IOException e) {</span>
-<span class="nc" id="L29">            StringBuilder sb = new StringBuilder(&quot;UNEXPECTED ERROR: &quot;);</span>
-<span class="nc bnc" id="L30" title="All 2 branches missed.">            if (e.getMessage() != null) {</span>
-<span class="nc" id="L31">                sb.append(e.getMessage());</span>
+<span class="fc" id="L27">            response.sendRedirect(&quot;swagger-ui.html&quot;);</span>
+<span class="fc" id="L28">        } catch (IOException e) {</span>
+<span class="fc" id="L29">            StringBuilder sb = new StringBuilder(&quot;UNEXPECTED ERROR: &quot;);</span>
+<span class="fc bfc" id="L30" title="All 2 branches covered.">            if (e.getMessage() != null) {</span>
+<span class="fc" id="L31">                sb.append(e.getMessage());</span>
             }
-<span class="nc" id="L33">            LOGGER.error(sb.toString(), e);</span>
-<span class="nc" id="L34">        }</span>
-<span class="nc" id="L35">    }</span>
+<span class="fc" id="L33">            LOGGER.error(sb.toString(), e);</span>
+<span class="fc" id="L34">        }</span>
+<span class="fc" id="L35">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

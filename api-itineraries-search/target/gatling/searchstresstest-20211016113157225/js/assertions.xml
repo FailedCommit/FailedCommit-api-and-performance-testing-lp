@@ -1,0 +1,8 @@
+<testsuite name="performance.SearchStressTest" tests="2" errors="0" failures="0" time="0">
+<testcase name="GET /api/flights/itineraries-search/itineraries: mean of response time is less than or equal to 2000.0" status="true" time="0">
+  <system-out>GET /api/flights/itineraries-search/itineraries: mean of response time is less than or equal to 2000.0</system-out>
+</testcase>
+<testcase name="GET /api/flights/itineraries-search/itineraries: count of failed events is less than or equal to 10.0" status="true" time="0">
+  <system-out>GET /api/flights/itineraries-search/itineraries: count of failed events is less than or equal to 10.0</system-out>
+</testcase>
+</testsuite>

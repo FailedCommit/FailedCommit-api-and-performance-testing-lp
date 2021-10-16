@@ -1,0 +1,27 @@
+{
+  "simulation": "performance.SearchStressTest",
+  "simulationId": "searchstresstest",
+  "start": 1634383917225,
+  "description": "",
+  "scenarios": ["Search"],
+  "assertions": [
+{
+  "path": "GET /api/flights/itineraries-search/itineraries",
+  "target": "mean of response time",
+  "condition": "is less than or equal to",
+  "expectedValues": [2000.0],
+  "result": true,
+  "message": "GET /api/flights/itineraries-search/itineraries: mean of response time is less than or equal to 2000.0",
+  "actualValue": [465.0]
+},
+{
+  "path": "GET /api/flights/itineraries-search/itineraries",
+  "target": "count of failed events",
+  "condition": "is less than or equal to",
+  "expectedValues": [10.0],
+  "result": true,
+  "message": "GET /api/flights/itineraries-search/itineraries: count of failed events is less than or equal to 10.0",
+  "actualValue": [0.0]
+}
+  ]
+}

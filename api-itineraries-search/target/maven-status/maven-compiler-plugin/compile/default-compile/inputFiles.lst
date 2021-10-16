@@ -8,12 +8,12 @@
 /Users/mkumar/Projects/manning/api-testing/api-itineraries-search/src/main/java/com/twa/flights/api/itineraries/search/controller/documentation/ItinerariesSearchResources.java
 /Users/mkumar/Projects/manning/api-testing/api-itineraries-search/src/main/java/com/twa/flights/api/itineraries/search/connector/ProviderAlphaConnector.java
 /Users/mkumar/Projects/manning/api-testing/api-itineraries-search/src/main/java/com/twa/flights/api/itineraries/search/controller/ItinerariesSearchController.java
-/Users/mkumar/Projects/manning/api-testing/api-itineraries-search/src/main/java/com/twa/flights/api/itineraries/search/ItenerariesSearchApp.java
 /Users/mkumar/Projects/manning/api-testing/api-itineraries-search/src/main/java/com/twa/flights/api/itineraries/search/dto/ErrorDTO.java
 /Users/mkumar/Projects/manning/api-testing/api-itineraries-search/src/main/java/com/twa/flights/api/itineraries/search/connector/configuration/ProviderAlphaConnectorConfiguration.java
 /Users/mkumar/Projects/manning/api-testing/api-itineraries-search/src/main/java/com/twa/flights/api/itineraries/search/configuration/WebConfiguration.java
 /Users/mkumar/Projects/manning/api-testing/api-itineraries-search/src/main/java/com/twa/flights/api/itineraries/search/helper/FlightDuplicationCheckHelper.java
 /Users/mkumar/Projects/manning/api-testing/api-itineraries-search/src/main/java/com/twa/flights/api/itineraries/search/exception/ResourceExceptionHandler.java
+/Users/mkumar/Projects/manning/api-testing/api-itineraries-search/src/main/java/com/twa/flights/api/itineraries/search/App.java
 /Users/mkumar/Projects/manning/api-testing/api-itineraries-search/src/main/java/com/twa/flights/api/itineraries/search/exception/TWAException.java
 /Users/mkumar/Projects/manning/api-testing/api-itineraries-search/src/main/java/com/twa/flights/api/itineraries/search/controller/DocumentationController.java
 /Users/mkumar/Projects/manning/api-testing/api-itineraries-search/src/main/java/com/twa/flights/api/itineraries/search/facade/ProviderBetaFacade.java

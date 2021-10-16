@@ -25,7 +25,8 @@
     {
       "name": "connector.catalog.connection-timeout",
       "type": "java.lang.Long",
-      "sourceType": "com.twa.flights.api.clusters.connector.configuration.CatalogConnectorConfiguration"
+      "sourceType": "com.twa.flights.api.clusters.connector.configuration.CatalogConnectorConfiguration",
+      "defaultValue": 0
     },
     {
       "name": "connector.catalog.host",
@@ -35,17 +36,20 @@
     {
       "name": "connector.catalog.read-timeout",
       "type": "java.lang.Long",
-      "sourceType": "com.twa.flights.api.clusters.connector.configuration.CatalogConnectorConfiguration"
+      "sourceType": "com.twa.flights.api.clusters.connector.configuration.CatalogConnectorConfiguration",
+      "defaultValue": 0
     },
     {
       "name": "connector.catalog.response-timeout",
       "type": "java.lang.Long",
-      "sourceType": "com.twa.flights.api.clusters.connector.configuration.CatalogConnectorConfiguration"
+      "sourceType": "com.twa.flights.api.clusters.connector.configuration.CatalogConnectorConfiguration",
+      "defaultValue": 0
     },
     {
       "name": "connector.itineraries-search.connection-timeout",
       "type": "java.lang.Long",
-      "sourceType": "com.twa.flights.api.clusters.connector.configuration.ItinerariesSearchConnectorConfiguration"
+      "sourceType": "com.twa.flights.api.clusters.connector.configuration.ItinerariesSearchConnectorConfiguration",
+      "defaultValue": 0
     },
     {
       "name": "connector.itineraries-search.host",
@@ -55,17 +59,20 @@
     {
       "name": "connector.itineraries-search.read-timeout",
       "type": "java.lang.Long",
-      "sourceType": "com.twa.flights.api.clusters.connector.configuration.ItinerariesSearchConnectorConfiguration"
+      "sourceType": "com.twa.flights.api.clusters.connector.configuration.ItinerariesSearchConnectorConfiguration",
+      "defaultValue": 0
     },
     {
       "name": "connector.itineraries-search.response-timeout",
       "type": "java.lang.Long",
-      "sourceType": "com.twa.flights.api.clusters.connector.configuration.ItinerariesSearchConnectorConfiguration"
+      "sourceType": "com.twa.flights.api.clusters.connector.configuration.ItinerariesSearchConnectorConfiguration",
+      "defaultValue": 0
     },
     {
       "name": "connector.pricing.connection-timeout",
       "type": "java.lang.Long",
-      "sourceType": "com.twa.flights.api.clusters.connector.configuration.PricingConnectorConfiguration"
+      "sourceType": "com.twa.flights.api.clusters.connector.configuration.PricingConnectorConfiguration",
+      "defaultValue": 0
     },
     {
       "name": "connector.pricing.host",
@@ -75,12 +82,14 @@
     {
       "name": "connector.pricing.read-timeout",
       "type": "java.lang.Long",
-      "sourceType": "com.twa.flights.api.clusters.connector.configuration.PricingConnectorConfiguration"
+      "sourceType": "com.twa.flights.api.clusters.connector.configuration.PricingConnectorConfiguration",
+      "defaultValue": 0
     },
     {
       "name": "connector.pricing.response-timeout",
       "type": "java.lang.Long",
-      "sourceType": "com.twa.flights.api.clusters.connector.configuration.PricingConnectorConfiguration"
+      "sourceType": "com.twa.flights.api.clusters.connector.configuration.PricingConnectorConfiguration",
+      "defaultValue": 0
     },
     {
       "name": "redis",
