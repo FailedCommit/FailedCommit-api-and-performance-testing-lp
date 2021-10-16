@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ItineraryKeyGeneratorHelper.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">api-itineraries-search</a> &gt; <a href="index.source.html" class="el_package">com.twa.flights.api.itineraries.search.helper</a> &gt; <span class="el_source">ItineraryKeyGeneratorHelper.java</span></div><h1>ItineraryKeyGeneratorHelper.java</h1><pre class="source lang-java linenums">package com.twa.flights.api.itineraries.search.helper;
+
+import org.springframework.stereotype.Component;
+
+import com.twa.flights.common.dto.itinerary.ItineraryDTO;
+import com.twa.flights.common.dto.itinerary.LegDTO;
+import com.twa.flights.common.dto.itinerary.SegmentDTO;
+
+@Component
+<span class="fc" id="L10">public class ItineraryKeyGeneratorHelper {</span>
+
+    private static final String SEGMENT_JOINER = &quot;*&quot;;
+    private static final String AND_CHAR = &quot;&amp;&amp;&quot;;
+    private static final String MIDDLESCORE_CHAR = &quot;-&quot;;
+    private static final String UNDERSCORE_CHAR = &quot;_&quot;;
+    private static final String AT_CHAR = &quot;@&quot;;
+    private static final String PIPELINE_CHAR = &quot;|&quot;;
+    private static final String OPEN_PARENTHESIS = &quot;(&quot;;
+    private static final String CLOSE_PARENTHESIS = &quot;)&quot;;
+
+    public String generateKeyForItinerary(ItineraryDTO itinerary) {
+<span class="fc" id="L22">        StringBuilder sBuilder = new StringBuilder();</span>
+
+<span class="fc" id="L24">        sBuilder.append(itinerary.getProvider()).append(PIPELINE_CHAR);</span>
+<span class="fc" id="L25">        sBuilder.append(itinerary.getCarrier()).append(AT_CHAR);</span>
+
+<span class="fc bfc" id="L27" title="All 2 branches covered.">        for (SegmentDTO segment : itinerary.getSegments()) {</span>
+<span class="fc" id="L28">            String sId = generateKeyForSegmentAndPriceInfo(segment);</span>
+<span class="fc" id="L29">            sBuilder.append(sId).append(SEGMENT_JOINER);</span>
+<span class="fc" id="L30">        }</span>
+
+<span class="fc" id="L32">        sBuilder.deleteCharAt(sBuilder.length() - 1);</span>
+
+<span class="fc" id="L34">        return sBuilder.toString();</span>
+    }
+
+    private String generateKeyForSegmentAndPriceInfo(SegmentDTO segment) {
+
+<span class="fc" id="L39">        StringBuilder id = new StringBuilder();</span>
+<span class="fc" id="L40">        id.append(PIPELINE_CHAR).append(this.generateKeyForSegment(segment)).append(AT_CHAR);</span>
+
+<span class="fc" id="L42">        return id.toString();</span>
+    }
+
+    private String generateKeyForSegment(SegmentDTO segment) {
+<span class="fc" id="L46">        StringBuilder id = new StringBuilder();</span>
+<span class="fc" id="L47">        String prefix = &quot;&quot;;</span>
+<span class="fc" id="L48">        id.append(segment.getFlightDuration()).append(PIPELINE_CHAR);</span>
+<span class="fc bfc" id="L49" title="All 2 branches covered.">        for (LegDTO leg : segment.getLegs()) {</span>
+<span class="fc" id="L50">            id.append(prefix);</span>
+<span class="fc" id="L51">            prefix = AND_CHAR;</span>
+<span class="fc" id="L52">            id.append(generateKeyForLeg(leg));</span>
+<span class="fc" id="L53">        }</span>
+<span class="fc" id="L54">        return id.toString();</span>
+    }
+
+    private String generateKeyForLeg(LegDTO leg) {
+<span class="fc" id="L58">        return new StringBuilder(leg.getOrigin()).append(MIDDLESCORE_CHAR).append(leg.getDestination())</span>
+<span class="fc" id="L59">                .append(OPEN_PARENTHESIS).append(leg.getNumber()).append(CLOSE_PARENTHESIS)</span>
+<span class="fc" id="L60">                .append(leg.getDepartureDate()).append(UNDERSCORE_CHAR).append(leg.getDepartureTime())</span>
+<span class="fc" id="L61">                .append(UNDERSCORE_CHAR).toString();</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
