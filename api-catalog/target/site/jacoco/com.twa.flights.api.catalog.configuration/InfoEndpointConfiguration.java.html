@@ -10,19 +10,19 @@ import java.util.Collections;
 import java.util.Map;
 
 @Configuration
-<span class="fc" id="L13">public class InfoEndpointConfiguration {</span>
+<span class="nc" id="L13">public class InfoEndpointConfiguration {</span>
 
     private static final String APP_INFO_FILE = &quot;app-info.yml&quot;;
 
     @Bean
     @SuppressWarnings(&quot;unchecked&quot;)
     public InfoEndpoint infoEndpoint() {
-<span class="fc" id="L20">        Yaml yaml = new Yaml();</span>
-<span class="fc" id="L21">        Map&lt;String, Object&gt; appInfo = yaml.loadAs(this.getClass().getClassLoader().getResourceAsStream(APP_INFO_FILE),</span>
+<span class="nc" id="L20">        Yaml yaml = new Yaml();</span>
+<span class="nc" id="L21">        Map&lt;String, Object&gt; appInfo = yaml.loadAs(this.getClass().getClassLoader().getResourceAsStream(APP_INFO_FILE),</span>
                 Map.class);
 
-<span class="fc" id="L24">        InfoContributor ic = builder -&gt; builder.withDetails(appInfo);</span>
-<span class="fc" id="L25">        return new InfoEndpoint(Collections.singletonList(ic));</span>
+<span class="nc" id="L24">        InfoContributor ic = builder -&gt; builder.withDetails(appInfo);</span>
+<span class="nc" id="L25">        return new InfoEndpoint(Collections.singletonList(ic));</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

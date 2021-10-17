@@ -7,7 +7,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-<span class="fc" id="L10">public class City extends Base {</span>
+<span class="nc" id="L10">public class City extends Base {</span>
 
     @Column(length = 50, nullable = false)
     private String timeZone;
@@ -17,7 +17,7 @@ import javax.persistence.ManyToOne;
     private Country country;
 
     public String getTimeZone() {
-<span class="fc" id="L20">        return timeZone;</span>
+<span class="nc" id="L20">        return timeZone;</span>
     }
 
     public void setTimeZone(String timeZone) {
@@ -25,7 +25,7 @@ import javax.persistence.ManyToOne;
 <span class="nc" id="L25">    }</span>
 
     public Country getCountry() {
-<span class="fc" id="L28">        return country;</span>
+<span class="nc" id="L28">        return country;</span>
     }
 
     public void setCountry(Country country) {

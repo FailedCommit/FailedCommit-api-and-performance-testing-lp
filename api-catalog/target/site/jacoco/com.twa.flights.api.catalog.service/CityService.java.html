@@ -16,14 +16,14 @@ public class CityService {
     MapperFacade mapper;
 
     @Autowired
-<span class="fc" id="L19">    public CityService(CityRepository cityRepository, MapperFacade mapper) {</span>
-<span class="fc" id="L20">        this.cityRepository = cityRepository;</span>
-<span class="fc" id="L21">        this.mapper = mapper;</span>
-<span class="fc" id="L22">    }</span>
+<span class="nc" id="L19">    public CityService(CityRepository cityRepository, MapperFacade mapper) {</span>
+<span class="nc" id="L20">        this.cityRepository = cityRepository;</span>
+<span class="nc" id="L21">        this.mapper = mapper;</span>
+<span class="nc" id="L22">    }</span>
 
     public CityDTO getCityByCode(String code) {
-<span class="fc" id="L25">        City city = cityRepository.findByCode(code);</span>
-<span class="fc" id="L26">        return mapper.map(city, CityDTO.class);</span>
+<span class="nc" id="L25">        City city = cityRepository.findByCode(code);</span>
+<span class="nc" id="L26">        return mapper.map(city, CityDTO.class);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

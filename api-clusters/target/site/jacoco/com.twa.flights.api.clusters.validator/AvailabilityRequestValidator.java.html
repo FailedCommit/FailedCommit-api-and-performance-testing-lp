@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AvailabilityRequestValidator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">api-clusters</a> &gt; <a href="index.source.html" class="el_package">com.twa.flights.api.clusters.validator</a> &gt; <span class="el_source">AvailabilityRequestValidator.java</span></div><h1>AvailabilityRequestValidator.java</h1><pre class="source lang-java linenums">package com.twa.flights.api.clusters.validator;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.Arrays;
+import java.util.List;
+
+import org.springframework.stereotype.Component;
+import org.springframework.util.ObjectUtils;
+import org.springframework.util.StringUtils;
+
+import com.google.common.collect.Lists;
+import com.twa.flights.api.clusters.dto.CityDTO;
+import com.twa.flights.api.clusters.enums.ExceptionStatus;
+import com.twa.flights.api.clusters.exception.BadRequestException;
+import com.twa.flights.api.clusters.service.CatalogService;
+import com.twa.flights.common.dto.request.AvailabilityRequestDTO;
+
+@Component
+public class AvailabilityRequestValidator {
+
+    private static final String COMMA = &quot;,&quot;;
+    private static final String DATE_PATTERN = &quot;yyyy-MM-dd&quot;;
+
+    private final CatalogService catalogService;
+
+<span class="nc" id="L28">    public AvailabilityRequestValidator(CatalogService catalogService) {</span>
+<span class="nc" id="L29">        this.catalogService = catalogService;</span>
+<span class="nc" id="L30">    }</span>
+
+    public void validate(final AvailabilityRequestDTO request) {
+
+<span class="nc" id="L34">        validateDeparture(request.getDeparture());</span>
+
+<span class="nc" id="L36">        validatePassengerCount(request);</span>
+
+<span class="nc" id="L38">        validateFromTo(request);</span>
+<span class="nc" id="L39">    }</span>
+
+    // private function(s)
+    private void validateDeparture(final String departure) {
+
+<span class="nc bnc" id="L44" title="All 2 branches missed.">        if (departure == null) {</span>
+<span class="nc" id="L45">            throw new BadRequestException(ExceptionStatus.EMPTY_DEPARTURES);</span>
+        }
+
+<span class="nc" id="L48">        final List&lt;String&gt; stringDates = Arrays.asList(departure.split(COMMA));</span>
+
+<span class="nc" id="L50">        final List&lt;LocalDate&gt; dates = Lists.newLinkedList();</span>
+
+<span class="nc bnc" id="L52" title="All 2 branches missed.">        for (final String stringDate : stringDates) {</span>
+            try {
+<span class="nc" id="L54">                dates.add(LocalDate.parse(stringDate, DateTimeFormatter.ofPattern(DATE_PATTERN)));</span>
+<span class="nc" id="L55">            } catch (final DateTimeParseException e) {</span>
+<span class="nc" id="L56">                throw new BadRequestException(ExceptionStatus.INVALID_DEPARTURES);</span>
+<span class="nc" id="L57">            }</span>
+<span class="nc" id="L58">        }</span>
+
+<span class="nc" id="L60">        dates.forEach(date -&gt; {</span>
+<span class="nc bnc" id="L61" title="All 2 branches missed.">            if (date.isBefore(LocalDate.now())) {</span>
+<span class="nc" id="L62">                throw new BadRequestException(ExceptionStatus.SEARCH_IN_THE_PAST);</span>
+            }
+<span class="nc" id="L64">        });</span>
+
+<span class="nc bnc" id="L66" title="All 2 branches missed.">        if (dates.size() &gt; 1) {</span>
+<span class="nc bnc" id="L67" title="All 2 branches missed.">            for (int i = 1; i &lt; dates.size(); i++) {</span>
+<span class="nc bnc" id="L68" title="All 2 branches missed.">                if (dates.get(i - 1).compareTo(dates.get(i)) &gt; 0) {</span>
+<span class="nc" id="L69">                    throw new BadRequestException(ExceptionStatus.ARRIVAL_BEFORE_DEPARTURE);</span>
+                }
+            }
+        }
+<span class="nc" id="L73">    }</span>
+
+    private void validatePassengerCount(final AvailabilityRequestDTO request) {
+<span class="nc bnc" id="L76" title="All 2 branches missed.">        if (request.getAdults() &lt;= 0) {</span>
+<span class="nc" id="L77">            throw new BadRequestException(ExceptionStatus.INVALID_ADULTS_QUANTITY);</span>
+        }
+
+<span class="nc bnc" id="L80" title="All 2 branches missed.">        if (request.getChildren() &lt; 0) {</span>
+<span class="nc" id="L81">            throw new BadRequestException(ExceptionStatus.INVALID_CHILDREN_QUANTITY);</span>
+        }
+
+<span class="nc bnc" id="L84" title="All 2 branches missed.">        if (request.getInfants() &lt; 0) {</span>
+<span class="nc" id="L85">            throw new BadRequestException(ExceptionStatus.INVALID_INFANT_QUANTITY);</span>
+        }
+
+<span class="nc bnc" id="L88" title="All 2 branches missed.">        if (request.getAdults() + request.getChildren() &gt; 9) {</span>
+<span class="nc" id="L89">            throw new BadRequestException(ExceptionStatus.INVALID_NUMBER_OF_PASSENGERS);</span>
+        }
+<span class="nc" id="L91">    }</span>
+
+    private void validateFromTo(AvailabilityRequestDTO request) {
+
+<span class="nc" id="L95">        validateFromToEmptyRequestFields(request);</span>
+
+<span class="nc" id="L97">        final List&lt;String&gt; list = Lists.newArrayList();</span>
+<span class="nc" id="L98">        final List&lt;String&gt; origins = Lists.newArrayList(request.getFrom().split(&quot;,&quot;));</span>
+<span class="nc" id="L99">        final List&lt;String&gt; destinations = Lists.newArrayList(request.getTo().split(&quot;,&quot;));</span>
+
+<span class="nc" id="L101">        origins.removeIf(ObjectUtils::isEmpty);</span>
+<span class="nc" id="L102">        destinations.removeIf(ObjectUtils::isEmpty);</span>
+
+<span class="nc" id="L104">        list.addAll(origins);</span>
+<span class="nc" id="L105">        list.addAll(destinations);</span>
+
+<span class="nc" id="L107">        validateFromToValidCodes(list);</span>
+<span class="nc" id="L108">        validateFromToRoutes(origins, destinations);</span>
+<span class="nc" id="L109">    }</span>
+
+    private void validateFromToEmptyRequestFields(AvailabilityRequestDTO request) {
+<span class="nc bnc" id="L112" title="All 2 branches missed.">        if (!StringUtils.hasLength(request.getFrom())) {</span>
+<span class="nc" id="L113">            throw new BadRequestException(ExceptionStatus.EMPTY_ORIGINS);</span>
+        }
+
+<span class="nc bnc" id="L116" title="All 2 branches missed.">        if (!StringUtils.hasLength(request.getTo())) {</span>
+<span class="nc" id="L117">            throw new BadRequestException(ExceptionStatus.EMPTY_DESTINATIONS);</span>
+        }
+<span class="nc" id="L119">    }</span>
+
+    private void validateFromToRoutes(final List&lt;String&gt; origins, final List&lt;String&gt; destinations) {
+<span class="nc" id="L122">        List&lt;String&gt; routes = Lists.newArrayList();</span>
+<span class="nc bnc" id="L123" title="All 2 branches missed.">        for (int i = 0; i &lt; origins.size(); i++) {</span>
+<span class="nc bnc" id="L124" title="All 2 branches missed.">            if (origins.get(i).equals(destinations.get(i))) {</span>
+<span class="nc" id="L125">                throw new BadRequestException(ExceptionStatus.ORIGIN_AND_DESTINATION_ARE_THE_SAME);</span>
+            }
+<span class="nc" id="L127">            final String route = origins.get(i).concat(destinations.get(i));</span>
+<span class="nc bnc" id="L128" title="All 2 branches missed.">            if (routes.contains(route)) {</span>
+<span class="nc" id="L129">                throw new BadRequestException(ExceptionStatus.DUPLICATED_ROUTES);</span>
+            }
+<span class="nc" id="L131">            routes.add(route);</span>
+        }
+<span class="nc" id="L133">    }</span>
+
+    private void validateFromToValidCodes(final List&lt;String&gt; list) {
+<span class="nc bnc" id="L136" title="All 2 branches missed.">        for (String code : list) {</span>
+<span class="nc bnc" id="L137" title="All 2 branches missed.">            if (code.length() &gt; 3) {</span>
+<span class="nc" id="L138">                throw new BadRequestException(ExceptionStatus.INVALID_ORIGIN_OR_DESTINATION);</span>
+            } else {
+<span class="nc" id="L140">                validateCodeWithCatalog(code);</span>
+            }
+<span class="nc" id="L142">        }</span>
+<span class="nc" id="L143">    }</span>
+
+    private void validateCodeWithCatalog(String code) {
+        try {
+<span class="nc" id="L147">            CityDTO city = catalogService.getCity(code);</span>
+
+<span class="nc bnc" id="L149" title="All 4 branches missed.">            if (!StringUtils.hasLength(city.getCode()) || city.getCountry() == null</span>
+<span class="nc bnc" id="L150" title="All 4 branches missed.">                    || !StringUtils.hasLength(city.getCountry().getCode()) || city.getCountry().getContinent() == null</span>
+<span class="nc bnc" id="L151" title="All 2 branches missed.">                    || !StringUtils.hasLength(city.getCountry().getContinent().getCode())) {</span>
+<span class="nc" id="L152">                throw new BadRequestException(ExceptionStatus.INCOMPLETE_CATALOG_INFORMATION);</span>
+            }
+<span class="nc" id="L154">        } catch (Exception e) {</span>
+<span class="nc" id="L155">            throw new BadRequestException(ExceptionStatus.INCOMPLETE_CATALOG_INFORMATION);</span>
+<span class="nc" id="L156">        }</span>
+<span class="nc" id="L157">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

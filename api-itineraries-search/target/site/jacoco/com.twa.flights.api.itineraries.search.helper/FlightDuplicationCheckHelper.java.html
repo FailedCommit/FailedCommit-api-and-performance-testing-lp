@@ -17,35 +17,35 @@ public class FlightDuplicationCheckHelper {
     private ItineraryKeyGeneratorHelper itineraryKeyGeneratorHelper;
 
     @Autowired
-<span class="fc" id="L20">    public FlightDuplicationCheckHelper(ItineraryKeyGeneratorHelper itineraryKeyGeneratorHelper) {</span>
-<span class="fc" id="L21">        this.itineraryKeyGeneratorHelper = itineraryKeyGeneratorHelper;</span>
-<span class="fc" id="L22">    }</span>
+<span class="nc" id="L20">    public FlightDuplicationCheckHelper(ItineraryKeyGeneratorHelper itineraryKeyGeneratorHelper) {</span>
+<span class="nc" id="L21">        this.itineraryKeyGeneratorHelper = itineraryKeyGeneratorHelper;</span>
+<span class="nc" id="L22">    }</span>
 
     public List&lt;ItineraryDTO&gt; removeDuplicateFlights(List&lt;ItineraryDTO&gt; flights) {
 
-<span class="fc" id="L26">        HashMap&lt;String, ItineraryDTO&gt; itinerariesMap = Maps.newHashMap();</span>
+<span class="nc" id="L26">        HashMap&lt;String, ItineraryDTO&gt; itinerariesMap = Maps.newHashMap();</span>
 
-<span class="fc" id="L28">        flights.stream().forEach(itinerary -&gt; {</span>
-<span class="fc" id="L29">            String itineraryKey = itineraryKeyGeneratorHelper.generateKeyForItinerary(itinerary);</span>
+<span class="nc" id="L28">        flights.stream().forEach(itinerary -&gt; {</span>
+<span class="nc" id="L29">            String itineraryKey = itineraryKeyGeneratorHelper.generateKeyForItinerary(itinerary);</span>
 
-<span class="fc bfc" id="L31" title="All 2 branches covered.">            if (itinerariesMap.putIfAbsent(itineraryKey, itinerary) != null) {</span>
+<span class="nc bnc" id="L31" title="All 2 branches missed.">            if (itinerariesMap.putIfAbsent(itineraryKey, itinerary) != null) {</span>
 
-<span class="fc" id="L33">                ItineraryDTO oldItinerary = itinerariesMap.get(itineraryKey);</span>
+<span class="nc" id="L33">                ItineraryDTO oldItinerary = itinerariesMap.get(itineraryKey);</span>
 
-<span class="pc bpc" id="L35" title="1 of 2 branches missed.">                if (isBetterPrice(oldItinerary, itinerary, 0d)) {</span>
+<span class="nc bnc" id="L35" title="All 2 branches missed.">                if (isBetterPrice(oldItinerary, itinerary, 0d)) {</span>
 <span class="nc" id="L36">                    itinerariesMap.put(itineraryKey, itinerary);</span>
                 }
             }
 
-<span class="fc" id="L40">        });</span>
+<span class="nc" id="L40">        });</span>
 
-<span class="fc" id="L42">        return Lists.newArrayList(itinerariesMap.values());</span>
+<span class="nc" id="L42">        return Lists.newArrayList(itinerariesMap.values());</span>
     }
 
     private boolean isBetterPrice(ItineraryDTO iter1, ItineraryDTO iter2, Double tolerance) {
-<span class="fc" id="L46">        BigDecimal subtract = iter1.getPriceInfo().getTotalAmount().subtract(iter2.getPriceInfo().getTotalAmount());</span>
+<span class="nc" id="L46">        BigDecimal subtract = iter1.getPriceInfo().getTotalAmount().subtract(iter2.getPriceInfo().getTotalAmount());</span>
 
-<span class="pc bpc" id="L48" title="3 of 4 branches missed.">        return subtract.compareTo(BigDecimal.ZERO) &gt; 0 ? tolerance.compareTo(subtract.doubleValue()) &lt;= 0 : false;</span>
+<span class="nc bnc" id="L48" title="All 4 branches missed.">        return subtract.compareTo(BigDecimal.ZERO) &gt; 0 ? tolerance.compareTo(subtract.doubleValue()) &lt;= 0 : false;</span>
     }
 
 }

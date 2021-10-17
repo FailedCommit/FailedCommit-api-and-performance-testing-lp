@@ -19,21 +19,21 @@ import com.twa.flights.common.dto.request.AvailabilityRequestDTO;
 @RequestMapping(&quot;/&quot;)
 public class ItinerariesSearchController implements ItinerariesSearchResources {
 
-<span class="fc" id="L22">    private static final Logger LOGGER = LoggerFactory.getLogger(ItinerariesSearchController.class);</span>
+<span class="nc" id="L22">    private static final Logger LOGGER = LoggerFactory.getLogger(ItinerariesSearchController.class);</span>
 
     private final ItinerariesSearchService itinerariesSearchService;
 
     @Autowired
-<span class="fc" id="L27">    public ItinerariesSearchController(ItinerariesSearchService itinerariesSearchService) {</span>
-<span class="fc" id="L28">        this.itinerariesSearchService = itinerariesSearchService;</span>
-<span class="fc" id="L29">    }</span>
+<span class="nc" id="L27">    public ItinerariesSearchController(ItinerariesSearchService itinerariesSearchService) {</span>
+<span class="nc" id="L28">        this.itinerariesSearchService = itinerariesSearchService;</span>
+<span class="nc" id="L29">    }</span>
 
     @Override
     public ResponseEntity&lt;List&lt;ItineraryDTO&gt;&gt; availability(AvailabilityRequestDTO request) {
-<span class="fc" id="L33">        LOGGER.debug(&quot;Obtain all the itineraries without price&quot;);</span>
+<span class="nc" id="L33">        LOGGER.debug(&quot;Obtain all the itineraries without price&quot;);</span>
 
-<span class="fc" id="L35">        List&lt;ItineraryDTO&gt; response = itinerariesSearchService.availability(request);</span>
-<span class="fc" id="L36">        return new ResponseEntity&lt;&gt;(response, HttpStatus.OK);</span>
+<span class="nc" id="L35">        List&lt;ItineraryDTO&gt; response = itinerariesSearchService.availability(request);</span>
+<span class="nc" id="L36">        return new ResponseEntity&lt;&gt;(response, HttpStatus.OK);</span>
     }
 
 }

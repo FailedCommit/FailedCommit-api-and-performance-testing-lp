@@ -15,18 +15,18 @@ import com.twa.flights.common.dto.request.AvailabilityRequestDTO;
 @Component
 public class ProviderAlphaFacade implements ProviderFacade {
 
-<span class="fc" id="L18">    static final Logger LOGGER = LoggerFactory.getLogger(ProviderAlphaFacade.class);</span>
+<span class="nc" id="L18">    static final Logger LOGGER = LoggerFactory.getLogger(ProviderAlphaFacade.class);</span>
 
     ProviderAlphaConnector itinerariesSearchConnector;
 
     @Autowired
-<span class="fc" id="L23">    public ProviderAlphaFacade(ProviderAlphaConnector itinerariesSearchConnector) {</span>
-<span class="fc" id="L24">        this.itinerariesSearchConnector = itinerariesSearchConnector;</span>
-<span class="fc" id="L25">    }</span>
+<span class="nc" id="L23">    public ProviderAlphaFacade(ProviderAlphaConnector itinerariesSearchConnector) {</span>
+<span class="nc" id="L24">        this.itinerariesSearchConnector = itinerariesSearchConnector;</span>
+<span class="nc" id="L25">    }</span>
 
     public List&lt;ItineraryDTO&gt; availability(AvailabilityRequestDTO request) {
-<span class="fc" id="L28">        LOGGER.debug(&quot;Obtain the information about the flights&quot;);</span>
-<span class="fc" id="L29">        return itinerariesSearchConnector.availability(request);</span>
+<span class="nc" id="L28">        LOGGER.debug(&quot;Obtain the information about the flights&quot;);</span>
+<span class="nc" id="L29">        return itinerariesSearchConnector.availability(request);</span>
     }
 
     @Override

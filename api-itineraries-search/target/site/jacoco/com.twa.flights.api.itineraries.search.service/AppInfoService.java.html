@@ -16,9 +16,9 @@ public class AppInfoService {
     private final InfoEndpoint infoEndpoint;
 
     @Autowired
-<span class="fc" id="L19">    public AppInfoService(InfoEndpoint infoEndpoint) {</span>
-<span class="fc" id="L20">        this.infoEndpoint = infoEndpoint;</span>
-<span class="fc" id="L21">    }</span>
+<span class="nc" id="L19">    public AppInfoService(InfoEndpoint infoEndpoint) {</span>
+<span class="nc" id="L20">        this.infoEndpoint = infoEndpoint;</span>
+<span class="nc" id="L21">    }</span>
 
     @SuppressWarnings(&quot;unchecked&quot;)
     public String getAppName() {
@@ -28,8 +28,8 @@ public class AppInfoService {
 
     @SuppressWarnings(&quot;unchecked&quot;)
     public String getVersion() {
-<span class="fc" id="L31">        final Map&lt;String, String&gt; appInfo = (Map&lt;String, String&gt;) infoEndpoint.info().get(BUILD_PROPERTY);</span>
-<span class="fc" id="L32">        return appInfo.get(VERSION_PROPERTY);</span>
+<span class="nc" id="L31">        final Map&lt;String, String&gt; appInfo = (Map&lt;String, String&gt;) infoEndpoint.info().get(BUILD_PROPERTY);</span>
+<span class="nc" id="L32">        return appInfo.get(VERSION_PROPERTY);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

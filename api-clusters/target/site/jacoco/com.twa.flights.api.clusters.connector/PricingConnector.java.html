@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PricingConnector.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">api-clusters</a> &gt; <a href="index.source.html" class="el_package">com.twa.flights.api.clusters.connector</a> &gt; <span class="el_source">PricingConnector.java</span></div><h1>PricingConnector.java</h1><pre class="source lang-java linenums">package com.twa.flights.api.clusters.connector;
+
+import java.time.Duration;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.client.reactive.ClientHttpConnector;
+import org.springframework.http.client.reactive.ReactorClientHttpConnector;
+import org.springframework.stereotype.Component;
+import org.springframework.web.reactive.function.client.WebClient;
+
+import com.twa.flights.api.clusters.connector.configuration.PricingConnectorConfiguration;
+import com.twa.flights.api.clusters.dto.UpdatedPriceInfoDTO;
+import com.twa.flights.api.clusters.exception.TWAException;
+import com.twa.flights.common.dto.itinerary.ItineraryDTO;
+
+import io.netty.channel.ChannelOption;
+import io.netty.handler.timeout.ReadTimeoutHandler;
+import reactor.netty.http.client.HttpClient;
+
+@Component
+public class PricingConnector {
+
+<span class="nc" id="L30">    private static final Logger LOGGER = LoggerFactory.getLogger(PricingConnector.class);</span>
+
+    private static final String ITINERARIES = &quot;/api/flights/pricing/itineraries&quot;;
+
+    private final PricingConnectorConfiguration configuration;
+
+    @Autowired
+<span class="nc" id="L37">    public PricingConnector(PricingConnectorConfiguration configuration) {</span>
+<span class="nc" id="L38">        this.configuration = configuration;</span>
+<span class="nc" id="L39">    }</span>
+
+    public List&lt;UpdatedPriceInfoDTO&gt; priceItineraries(List&lt;ItineraryDTO&gt; itineraries) {
+<span class="nc" id="L42">        final long readTimeout = configuration.getReadTimeout();</span>
+
+<span class="nc" id="L44">        HttpClient httpClient = HttpClient.create()</span>
+<span class="nc" id="L45">                .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, Math.toIntExact(configuration.getConnectionTimeout()))</span>
+<span class="nc" id="L46">                .responseTimeout(Duration.ofMillis(configuration.getResponseTimeout()))</span>
+<span class="nc" id="L47">                .doOnConnected(conn -&gt; conn.addHandlerLast(new ReadTimeoutHandler(readTimeout, TimeUnit.MILLISECONDS)));</span>
+
+<span class="nc" id="L49">        ClientHttpConnector connector = new ReactorClientHttpConnector(httpClient);</span>
+
+<span class="nc" id="L51">        WebClient client = WebClient.builder().defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)</span>
+<span class="nc" id="L52">                .clientConnector(connector).build();</span>
+
+<span class="nc" id="L54">        return client.post().uri(configuration.getHost().concat(ITINERARIES)).bodyValue(itineraries).retrieve()</span>
+<span class="nc" id="L55">                .onStatus(HttpStatus::isError, clientResponse -&gt; {</span>
+<span class="nc" id="L56">                    LOGGER.error(&quot;Error while calling endpoint {} with status code {}&quot;, ITINERARIES,</span>
+<span class="nc" id="L57">                            clientResponse.statusCode());</span>
+<span class="nc" id="L58">                    throw new TWAException(&quot;Error while calling pricing endpoint&quot;);</span>
+<span class="nc" id="L59">                }).toEntityList(UpdatedPriceInfoDTO.class).block().getBody();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

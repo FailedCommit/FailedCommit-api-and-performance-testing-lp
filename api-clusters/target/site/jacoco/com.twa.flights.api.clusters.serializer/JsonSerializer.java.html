@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>JsonSerializer.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">api-clusters</a> &gt; <a href="index.source.html" class="el_package">com.twa.flights.api.clusters.serializer</a> &gt; <span class="el_source">JsonSerializer.java</span></div><h1>JsonSerializer.java</h1><pre class="source lang-java linenums">package com.twa.flights.api.clusters.serializer;
+
+import java.io.IOException;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.MapperFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+
+public class JsonSerializer {
+
+<span class="nc" id="L16">    private static final Logger LOGGER = LoggerFactory.getLogger(JsonSerializer.class);</span>
+    private static final ObjectMapper OBJECT_MAPPER;
+
+    private JsonSerializer() {
+        // just to avoid create instances
+    }
+
+    static {
+<span class="nc" id="L24">        OBJECT_MAPPER = new ObjectMapper().configure(MapperFeature.USE_GETTERS_AS_SETTERS, false)</span>
+<span class="nc" id="L25">                .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)</span>
+<span class="nc" id="L26">                .setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE).registerModule(new JavaTimeModule());</span>
+<span class="nc" id="L27">    }</span>
+
+    public static byte[] serialize(Object object) {
+<span class="nc" id="L30">        byte[] compressedJson = null;</span>
+        try {
+<span class="nc" id="L32">            compressedJson = OBJECT_MAPPER.writeValueAsString(object).getBytes();</span>
+<span class="nc" id="L33">        } catch (IOException e) {</span>
+<span class="nc" id="L34">            LOGGER.error(&quot;Error serializing object: {}&quot;, e.getMessage());</span>
+<span class="nc" id="L35">        }</span>
+<span class="nc" id="L36">        return compressedJson;</span>
+    }
+
+    public static &lt;T&gt; T deserialize(byte[] raw, Class&lt;T&gt; reference) {
+<span class="nc bnc" id="L40" title="All 2 branches missed.">        if (raw == null)</span>
+<span class="nc" id="L41">            return null;</span>
+
+<span class="nc" id="L43">        T object = null;</span>
+        try {
+<span class="nc" id="L45">            object = OBJECT_MAPPER.readValue(raw, reference);</span>
+<span class="nc" id="L46">        } catch (IOException e) {</span>
+<span class="nc" id="L47">            LOGGER.error(&quot;Can't deserialize object: {}&quot;, e.getMessage());</span>
+<span class="nc" id="L48">        }</span>
+<span class="nc" id="L49">        return object;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

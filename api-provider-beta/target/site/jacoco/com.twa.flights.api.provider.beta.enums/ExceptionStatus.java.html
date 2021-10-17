@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ExceptionStatus.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">api-provider-beta</a> &gt; <a href="index.source.html" class="el_package">com.twa.flights.api.provider.beta.enums</a> &gt; <span class="el_source">ExceptionStatus.java</span></div><h1>ExceptionStatus.java</h1><pre class="source lang-java linenums">package com.twa.flights.api.provider.beta.enums;
+
+<span class="nc" id="L3">public enum ExceptionStatus {</span>
+
+<span class="nc" id="L5">    EMPTY_ORIGINS(400_06_01, &quot;From must have a value&quot;), EMPTY_DESTINATIONS(400_06_02,</span>
+<span class="nc" id="L6">            &quot;To must have a value&quot;), EMPTY_DEPARTURES(400_06_03,</span>
+<span class="nc" id="L7">                    &quot;Departures must have a value&quot;), INVALID_ADULTS_QUANTITY(400_06_04,</span>
+<span class="nc" id="L8">                            &quot;Adults value must be higher than zero&quot;), INVALID_CHILDREN_QUANTITY(400_06_05,</span>
+<span class="nc" id="L9">                                    &quot;Children must have a positive value&quot;), INVALID_INFANT_QUANTITY(400_06_06,</span>
+<span class="nc" id="L10">                                            &quot;Infants must have a positive value&quot;), INVALID_DEPARTURES(400_06_07,</span>
+<span class="nc" id="L11">                                                    &quot;Departure must have a valid format&quot;), ARRIVAL_BEFORE_DEPARTURE(</span>
+                                                            400_06_08,
+<span class="nc" id="L13">                                                            &quot;Arrival date es before departure date&quot;), SEARCH_IN_THE_PAST(</span>
+                                                                    400_06_09,
+<span class="nc" id="L15">                                                                    &quot;you cannot make a search in the past&quot;), INVALID_NUMBER_OF_PASSENGERS(</span>
+                                                                            400_06_10,
+<span class="nc" id="L17">                                                                            &quot;Invalid number of passengers. Maximum 9&quot;), INVALID_ORIGIN_OR_DESTINATION(</span>
+                                                                                    400_06_11,
+<span class="nc" id="L19">                                                                                    &quot;At least one origin or destination have an invalid code&quot;), ORIGIN_AND_DESTINATION_ARE_THE_SAME(</span>
+                                                                                            400_06_12,
+<span class="nc" id="L21">                                                                                            &quot;Origin and destination are the same&quot;), DUPLICATED_ROUTES(</span>
+                                                                                                    400_06_13,
+                                                                                                    &quot;Some of the routes are duplicated&quot;);
+
+    private final int code;
+    private final String message;
+
+<span class="nc" id="L28">    ExceptionStatus(int code, String message) {</span>
+<span class="nc" id="L29">        this.code = code;</span>
+<span class="nc" id="L30">        this.message = message;</span>
+<span class="nc" id="L31">    }</span>
+
+    public int getCode() {
+<span class="nc" id="L34">        return code;</span>
+    }
+
+    public String getMessage() {
+<span class="nc" id="L38">        return message;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

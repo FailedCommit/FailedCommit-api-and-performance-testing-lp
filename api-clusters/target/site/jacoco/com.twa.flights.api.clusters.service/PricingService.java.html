@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PricingService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">api-clusters</a> &gt; <a href="index.source.html" class="el_package">com.twa.flights.api.clusters.service</a> &gt; <span class="el_source">PricingService.java</span></div><h1>PricingService.java</h1><pre class="source lang-java linenums">package com.twa.flights.api.clusters.service;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.twa.flights.api.clusters.connector.PricingConnector;
+import com.twa.flights.api.clusters.dto.UpdatedPriceInfoDTO;
+import com.twa.flights.common.dto.itinerary.ItineraryDTO;
+import com.twa.flights.common.dto.itinerary.PriceInfoDTO;
+
+@Service
+public class PricingService {
+
+<span class="nc" id="L20">    private static final Logger LOGGER = LoggerFactory.getLogger(PricingService.class);</span>
+
+    private PricingConnector pricingConnector;
+
+    @Autowired
+<span class="nc" id="L25">    public PricingService(PricingConnector pricingConnector) {</span>
+<span class="nc" id="L26">        this.pricingConnector = pricingConnector;</span>
+<span class="nc" id="L27">    }</span>
+
+    public List&lt;ItineraryDTO&gt; priceItineraries(List&lt;ItineraryDTO&gt; itineraries) {
+<span class="nc" id="L30">        LOGGER.debug(&quot;Pricing itineraries&quot;);</span>
+
+<span class="nc" id="L32">        List&lt;UpdatedPriceInfoDTO&gt; updatedPrices = pricingConnector.priceItineraries(itineraries);</span>
+
+<span class="nc bnc" id="L34" title="All 2 branches missed.">        for (UpdatedPriceInfoDTO updatedPriceInfo : updatedPrices) {</span>
+<span class="nc" id="L35">            Optional&lt;ItineraryDTO&gt; itinerary = itineraries.stream()</span>
+<span class="nc" id="L36">                    .filter(iti -&gt; iti.getId().equals(updatedPriceInfo.getItineraryId())).findFirst();</span>
+
+<span class="nc bnc" id="L38" title="All 2 branches missed.">            if (itinerary.isPresent()) {</span>
+<span class="nc" id="L39">                updatePriceInfo(updatedPriceInfo, itinerary.get());</span>
+            }
+<span class="nc" id="L41">        }</span>
+
+<span class="nc bnc" id="L43" title="All 2 branches missed.">        return itineraries.stream().filter(iti -&gt; iti.getPriceInfo().getAdults().getMarkup() != null)</span>
+<span class="nc" id="L44">                .collect(Collectors.toList());</span>
+    }
+
+    private void updatePriceInfo(UpdatedPriceInfoDTO updatedPriceInfo, ItineraryDTO itinerary) {
+<span class="nc" id="L48">        PriceInfoDTO priceInfo = itinerary.getPriceInfo();</span>
+<span class="nc" id="L49">        priceInfo.getAdults().setMarkup(updatedPriceInfo.getAdults().getMarkup());</span>
+<span class="nc" id="L50">        priceInfo.getAdults().setTotal(updatedPriceInfo.getAdults().getTotal());</span>
+
+<span class="nc bnc" id="L52" title="All 2 branches missed.">        if (priceInfo.getChildren() != null) {</span>
+<span class="nc" id="L53">            priceInfo.getChildren().setMarkup(updatedPriceInfo.getChildren().getMarkup());</span>
+<span class="nc" id="L54">            priceInfo.getChildren().setTotal(updatedPriceInfo.getChildren().getTotal());</span>
+        }
+
+<span class="nc bnc" id="L57" title="All 2 branches missed.">        if (priceInfo.getInfants() != null) {</span>
+<span class="nc" id="L58">            priceInfo.getInfants().setMarkup(updatedPriceInfo.getInfants().getMarkup());</span>
+<span class="nc" id="L59">            priceInfo.getInfants().setTotal(updatedPriceInfo.getInfants().getTotal());</span>
+        }
+<span class="nc" id="L61">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

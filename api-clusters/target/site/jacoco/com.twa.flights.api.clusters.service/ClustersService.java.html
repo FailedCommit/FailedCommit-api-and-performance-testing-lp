@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ClustersService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">api-clusters</a> &gt; <a href="index.source.html" class="el_package">com.twa.flights.api.clusters.service</a> &gt; <span class="el_source">ClustersService.java</span></div><h1>ClustersService.java</h1><pre class="source lang-java linenums">package com.twa.flights.api.clusters.service;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
+
+import com.twa.flights.api.clusters.dto.ClusterSearchDTO;
+import com.twa.flights.api.clusters.dto.request.ClustersAvailabilityRequestDTO;
+import com.twa.flights.api.clusters.enums.ExceptionStatus;
+import com.twa.flights.api.clusters.exception.APIException;
+import com.twa.flights.api.clusters.repository.ClustersRepository;
+import com.twa.flights.common.dto.itinerary.ItineraryDTO;
+
+@Service
+public class ClustersService {
+
+<span class="nc" id="L23">    private static final Logger LOGGER = LoggerFactory.getLogger(ClustersService.class);</span>
+
+    private final ItinerariesSearchService itinerariesSearchService;
+    private final PricingService pricingService;
+    private final ClustersRepository repository;
+
+    @Autowired
+    public ClustersService(ItinerariesSearchService itinerariesSearchService, PricingService pricingService,
+<span class="nc" id="L31">            ClustersRepository repository) {</span>
+<span class="nc" id="L32">        this.itinerariesSearchService = itinerariesSearchService;</span>
+<span class="nc" id="L33">        this.pricingService = pricingService;</span>
+<span class="nc" id="L34">        this.repository = repository;</span>
+<span class="nc" id="L35">    }</span>
+
+    public ClusterSearchDTO availability(ClustersAvailabilityRequestDTO request) {
+<span class="nc" id="L38">        LOGGER.debug(&quot;begin the search&quot;);</span>
+
+<span class="nc" id="L40">        ClusterSearchDTO response = null;</span>
+
+<span class="nc bnc" id="L42" title="All 2 branches missed.">        if (StringUtils.isEmpty(request.getId())) { // New search</span>
+<span class="nc" id="L43">            response = availabilityFromProviders(request);</span>
+        } else { // Pagination old search
+<span class="nc" id="L45">            response = availabilityFromDatabase(request);</span>
+        }
+
+<span class="nc" id="L48">        return response;</span>
+    }
+
+    private ClusterSearchDTO availabilityFromProviders(ClustersAvailabilityRequestDTO request) {
+        ClusterSearchDTO response;
+<span class="nc" id="L53">        List&lt;ItineraryDTO&gt; itineraries = itinerariesSearchService.availability(request);</span>
+
+<span class="nc" id="L55">        itineraries = pricingService.priceItineraries(itineraries);</span>
+<span class="nc" id="L56">        itineraries = itineraries.stream().sorted((itineraryOne, itineraryTwo) -&gt; itineraryOne.getPriceInfo()</span>
+<span class="nc" id="L57">                .getTotalAmount().compareTo(itineraryTwo.getPriceInfo().getTotalAmount())).collect(Collectors.toList());</span>
+
+<span class="nc" id="L59">        response = repository.insert(request, itineraries);</span>
+
+        // Limit the size
+<span class="nc" id="L62">        response.setItineraries(itineraries.stream().limit(request.getAmount()).collect(Collectors.toList()));</span>
+<span class="nc" id="L63">        return response;</span>
+    }
+
+    private ClusterSearchDTO availabilityFromDatabase(ClustersAvailabilityRequestDTO request) {
+        ClusterSearchDTO response;
+<span class="nc" id="L68">        response = repository.get(request.getId());</span>
+
+<span class="nc bnc" id="L70" title="All 2 branches missed.">        if (response == null) {</span>
+<span class="nc" id="L71">            throw new APIException(HttpStatus.BAD_GATEWAY, ExceptionStatus.SEARCH_NOT_FOUND_IN_REPOSITORY.getCode(),</span>
+<span class="nc" id="L72">                    ExceptionStatus.SEARCH_NOT_FOUND_IN_REPOSITORY.getMessage());</span>
+        }
+
+<span class="nc" id="L75">        response.getPagination().setOffset(request.getOffset()); // Update offset</span>
+
+<span class="nc" id="L77">        List&lt;ItineraryDTO&gt; itineraries = response.getItineraries();</span>
+
+<span class="nc" id="L79">        long skip = request.getOffset().longValue() * request.getAmount();</span>
+
+        // Limit the size
+<span class="nc" id="L82">        response.setItineraries(</span>
+<span class="nc" id="L83">                itineraries.stream().skip(skip).limit(request.getAmount()).collect(Collectors.toList()));</span>
+<span class="nc" id="L84">        return response;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

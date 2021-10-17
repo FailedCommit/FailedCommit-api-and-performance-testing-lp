@@ -7,7 +7,7 @@ import com.twa.flights.common.dto.itinerary.LegDTO;
 import com.twa.flights.common.dto.itinerary.SegmentDTO;
 
 @Component
-<span class="fc" id="L10">public class ItineraryKeyGeneratorHelper {</span>
+<span class="nc" id="L10">public class ItineraryKeyGeneratorHelper {</span>
 
     private static final String SEGMENT_JOINER = &quot;*&quot;;
     private static final String AND_CHAR = &quot;&amp;&amp;&quot;;
@@ -19,46 +19,46 @@ import com.twa.flights.common.dto.itinerary.SegmentDTO;
     private static final String CLOSE_PARENTHESIS = &quot;)&quot;;
 
     public String generateKeyForItinerary(ItineraryDTO itinerary) {
-<span class="fc" id="L22">        StringBuilder sBuilder = new StringBuilder();</span>
+<span class="nc" id="L22">        StringBuilder sBuilder = new StringBuilder();</span>
 
-<span class="fc" id="L24">        sBuilder.append(itinerary.getProvider()).append(PIPELINE_CHAR);</span>
-<span class="fc" id="L25">        sBuilder.append(itinerary.getCarrier()).append(AT_CHAR);</span>
+<span class="nc" id="L24">        sBuilder.append(itinerary.getProvider()).append(PIPELINE_CHAR);</span>
+<span class="nc" id="L25">        sBuilder.append(itinerary.getCarrier()).append(AT_CHAR);</span>
 
-<span class="fc bfc" id="L27" title="All 2 branches covered.">        for (SegmentDTO segment : itinerary.getSegments()) {</span>
-<span class="fc" id="L28">            String sId = generateKeyForSegmentAndPriceInfo(segment);</span>
-<span class="fc" id="L29">            sBuilder.append(sId).append(SEGMENT_JOINER);</span>
-<span class="fc" id="L30">        }</span>
+<span class="nc bnc" id="L27" title="All 2 branches missed.">        for (SegmentDTO segment : itinerary.getSegments()) {</span>
+<span class="nc" id="L28">            String sId = generateKeyForSegmentAndPriceInfo(segment);</span>
+<span class="nc" id="L29">            sBuilder.append(sId).append(SEGMENT_JOINER);</span>
+<span class="nc" id="L30">        }</span>
 
-<span class="fc" id="L32">        sBuilder.deleteCharAt(sBuilder.length() - 1);</span>
+<span class="nc" id="L32">        sBuilder.deleteCharAt(sBuilder.length() - 1);</span>
 
-<span class="fc" id="L34">        return sBuilder.toString();</span>
+<span class="nc" id="L34">        return sBuilder.toString();</span>
     }
 
     private String generateKeyForSegmentAndPriceInfo(SegmentDTO segment) {
 
-<span class="fc" id="L39">        StringBuilder id = new StringBuilder();</span>
-<span class="fc" id="L40">        id.append(PIPELINE_CHAR).append(this.generateKeyForSegment(segment)).append(AT_CHAR);</span>
+<span class="nc" id="L39">        StringBuilder id = new StringBuilder();</span>
+<span class="nc" id="L40">        id.append(PIPELINE_CHAR).append(this.generateKeyForSegment(segment)).append(AT_CHAR);</span>
 
-<span class="fc" id="L42">        return id.toString();</span>
+<span class="nc" id="L42">        return id.toString();</span>
     }
 
     private String generateKeyForSegment(SegmentDTO segment) {
-<span class="fc" id="L46">        StringBuilder id = new StringBuilder();</span>
-<span class="fc" id="L47">        String prefix = &quot;&quot;;</span>
-<span class="fc" id="L48">        id.append(segment.getFlightDuration()).append(PIPELINE_CHAR);</span>
-<span class="fc bfc" id="L49" title="All 2 branches covered.">        for (LegDTO leg : segment.getLegs()) {</span>
-<span class="fc" id="L50">            id.append(prefix);</span>
-<span class="fc" id="L51">            prefix = AND_CHAR;</span>
-<span class="fc" id="L52">            id.append(generateKeyForLeg(leg));</span>
-<span class="fc" id="L53">        }</span>
-<span class="fc" id="L54">        return id.toString();</span>
+<span class="nc" id="L46">        StringBuilder id = new StringBuilder();</span>
+<span class="nc" id="L47">        String prefix = &quot;&quot;;</span>
+<span class="nc" id="L48">        id.append(segment.getFlightDuration()).append(PIPELINE_CHAR);</span>
+<span class="nc bnc" id="L49" title="All 2 branches missed.">        for (LegDTO leg : segment.getLegs()) {</span>
+<span class="nc" id="L50">            id.append(prefix);</span>
+<span class="nc" id="L51">            prefix = AND_CHAR;</span>
+<span class="nc" id="L52">            id.append(generateKeyForLeg(leg));</span>
+<span class="nc" id="L53">        }</span>
+<span class="nc" id="L54">        return id.toString();</span>
     }
 
     private String generateKeyForLeg(LegDTO leg) {
-<span class="fc" id="L58">        return new StringBuilder(leg.getOrigin()).append(MIDDLESCORE_CHAR).append(leg.getDestination())</span>
-<span class="fc" id="L59">                .append(OPEN_PARENTHESIS).append(leg.getNumber()).append(CLOSE_PARENTHESIS)</span>
-<span class="fc" id="L60">                .append(leg.getDepartureDate()).append(UNDERSCORE_CHAR).append(leg.getDepartureTime())</span>
-<span class="fc" id="L61">                .append(UNDERSCORE_CHAR).toString();</span>
+<span class="nc" id="L58">        return new StringBuilder(leg.getOrigin()).append(MIDDLESCORE_CHAR).append(leg.getDestination())</span>
+<span class="nc" id="L59">                .append(OPEN_PARENTHESIS).append(leg.getNumber()).append(CLOSE_PARENTHESIS)</span>
+<span class="nc" id="L60">                .append(leg.getDepartureDate()).append(UNDERSCORE_CHAR).append(leg.getDepartureTime())</span>
+<span class="nc" id="L61">                .append(UNDERSCORE_CHAR).toString();</span>
     }
 
 }

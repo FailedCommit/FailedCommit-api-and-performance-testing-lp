@@ -16,32 +16,32 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 
 @Configuration
-<span class="fc" id="L19">public class WebConfiguration implements WebMvcConfigurer {</span>
+<span class="nc" id="L19">public class WebConfiguration implements WebMvcConfigurer {</span>
 
     @Override
     public void configureMessageConverters(List&lt;HttpMessageConverter&lt;?&gt;&gt; converters) {
-<span class="fc bfc" id="L23" title="All 2 branches covered.">        for (HttpMessageConverter&lt;?&gt; converter : converters) {</span>
-<span class="fc bfc" id="L24" title="All 2 branches covered.">            if (converter instanceof MappingJackson2HttpMessageConverter) {</span>
-<span class="fc" id="L25">                ObjectMapper objectIdMapper = ((MappingJackson2HttpMessageConverter) converter).getObjectMapper();</span>
-<span class="fc" id="L26">                objectIdMapper.setPropertyNamingStrategy(PropertyNamingStrategy.LOWER_CAMEL_CASE);</span>
-<span class="fc" id="L27">                objectIdMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);</span>
-<span class="fc" id="L28">                objectIdMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);</span>
+<span class="nc bnc" id="L23" title="All 2 branches missed.">        for (HttpMessageConverter&lt;?&gt; converter : converters) {</span>
+<span class="nc bnc" id="L24" title="All 2 branches missed.">            if (converter instanceof MappingJackson2HttpMessageConverter) {</span>
+<span class="nc" id="L25">                ObjectMapper objectIdMapper = ((MappingJackson2HttpMessageConverter) converter).getObjectMapper();</span>
+<span class="nc" id="L26">                objectIdMapper.setPropertyNamingStrategy(PropertyNamingStrategy.LOWER_CAMEL_CASE);</span>
+<span class="nc" id="L27">                objectIdMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);</span>
+<span class="nc" id="L28">                objectIdMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);</span>
             }
-<span class="fc" id="L30">        }</span>
-<span class="fc" id="L31">    }</span>
+<span class="nc" id="L30">        }</span>
+<span class="nc" id="L31">    }</span>
 
     @Override
     public void configureHandlerExceptionResolvers(List&lt;HandlerExceptionResolver&gt; exceptionResolvers) {
-<span class="fc" id="L35">        ExceptionHandlerExceptionResolver exceptionHandlerExceptionResolver = new ExceptionHandlerExceptionResolver();</span>
-<span class="fc" id="L36">        List&lt;HttpMessageConverter&lt;?&gt;&gt; messageConverters = exceptionHandlerExceptionResolver.getMessageConverters();</span>
-<span class="fc" id="L37">        ObjectMapper objectMapper = new ObjectMapper();</span>
-<span class="fc" id="L38">        objectMapper.setPropertyNamingStrategy(PropertyNamingStrategy.LOWER_CAMEL_CASE);</span>
-<span class="fc" id="L39">        messageConverters.add(new MappingJackson2HttpMessageConverter(objectMapper));</span>
-<span class="fc" id="L40">    }</span>
+<span class="nc" id="L35">        ExceptionHandlerExceptionResolver exceptionHandlerExceptionResolver = new ExceptionHandlerExceptionResolver();</span>
+<span class="nc" id="L36">        List&lt;HttpMessageConverter&lt;?&gt;&gt; messageConverters = exceptionHandlerExceptionResolver.getMessageConverters();</span>
+<span class="nc" id="L37">        ObjectMapper objectMapper = new ObjectMapper();</span>
+<span class="nc" id="L38">        objectMapper.setPropertyNamingStrategy(PropertyNamingStrategy.LOWER_CAMEL_CASE);</span>
+<span class="nc" id="L39">        messageConverters.add(new MappingJackson2HttpMessageConverter(objectMapper));</span>
+<span class="nc" id="L40">    }</span>
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-<span class="fc" id="L44">        registry.addResourceHandler(&quot;/documentation/**&quot;).addResourceLocations(&quot;classpath:/META-INF/resources/&quot;);</span>
-<span class="fc" id="L45">    }</span>
+<span class="nc" id="L44">        registry.addResourceHandler(&quot;/documentation/**&quot;).addResourceLocations(&quot;classpath:/META-INF/resources/&quot;);</span>
+<span class="nc" id="L45">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

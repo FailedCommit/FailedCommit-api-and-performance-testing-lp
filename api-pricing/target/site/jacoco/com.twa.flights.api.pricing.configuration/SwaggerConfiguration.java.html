@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SwaggerConfiguration.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">api-pricing</a> &gt; <a href="index.source.html" class="el_package">com.twa.flights.api.pricing.configuration</a> &gt; <span class="el_source">SwaggerConfiguration.java</span></div><h1>SwaggerConfiguration.java</h1><pre class="source lang-java linenums">package com.twa.flights.api.pricing.configuration;
+
+import org.springdoc.core.GroupedOpenApi;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import com.twa.flights.api.pricing.service.AppInfoService;
+
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Info;
+
+@Configuration
+public class SwaggerConfiguration {
+
+    AppInfoService appInfoService;
+
+    @Autowired
+<span class="fc" id="L19">    public SwaggerConfiguration(AppInfoService appInfoService) {</span>
+<span class="fc" id="L20">        this.appInfoService = appInfoService;</span>
+<span class="fc" id="L21">    }</span>
+
+    @Bean
+    public GroupedOpenApi defaultApi() {
+<span class="fc" id="L25">        return GroupedOpenApi.builder().group(&quot;default&quot;).packagesToScan(&quot;com.twa.flights.api.pricing.controller&quot;)</span>
+<span class="fc" id="L26">                .build();</span>
+    }
+
+    @Bean
+    public OpenAPI openAPI() {
+<span class="fc" id="L31">        return new OpenAPI().info(new Info().title(&quot;API Pricing&quot;)</span>
+<span class="fc" id="L32">                .description(&quot;This is the documentation of the API to price all the itineraries&quot;)</span>
+<span class="fc" id="L33">                .version(appInfoService.getVersion()));</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

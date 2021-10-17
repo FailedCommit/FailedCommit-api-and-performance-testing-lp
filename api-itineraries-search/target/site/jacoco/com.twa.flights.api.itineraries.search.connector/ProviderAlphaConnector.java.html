@@ -27,41 +27,41 @@ import reactor.netty.http.client.HttpClient;
 @Component
 public class ProviderAlphaConnector {
 
-<span class="fc" id="L30">    private static final Logger LOGGER = LoggerFactory.getLogger(ProviderAlphaConnector.class);</span>
+<span class="nc" id="L30">    private static final Logger LOGGER = LoggerFactory.getLogger(ProviderAlphaConnector.class);</span>
 
     private static final String SEARCH = &quot;/api/flights/provider/alpha/itineraries&quot;;
 
     private final ProviderAlphaConnectorConfiguration configuration;
 
     @Autowired
-<span class="fc" id="L37">    public ProviderAlphaConnector(ProviderAlphaConnectorConfiguration configuration) {</span>
-<span class="fc" id="L38">        this.configuration = configuration;</span>
-<span class="fc" id="L39">    }</span>
+<span class="nc" id="L37">    public ProviderAlphaConnector(ProviderAlphaConnectorConfiguration configuration) {</span>
+<span class="nc" id="L38">        this.configuration = configuration;</span>
+<span class="nc" id="L39">    }</span>
 
     public List&lt;ItineraryDTO&gt; availability(AvailabilityRequestDTO request) {
-<span class="fc" id="L42">        final long readTimeout = configuration.getReadTimeout();</span>
+<span class="nc" id="L42">        final long readTimeout = configuration.getReadTimeout();</span>
 
-<span class="fc" id="L44">        HttpClient httpClient = HttpClient.create()</span>
-<span class="fc" id="L45">                .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, Math.toIntExact(configuration.getConnectionTimeout()))</span>
-<span class="fc" id="L46">                .responseTimeout(Duration.ofMillis(configuration.getResponseTimeout()))</span>
-<span class="fc" id="L47">                .doOnConnected(conn -&gt; conn.addHandlerLast(new ReadTimeoutHandler(readTimeout, TimeUnit.MILLISECONDS)));</span>
+<span class="nc" id="L44">        HttpClient httpClient = HttpClient.create()</span>
+<span class="nc" id="L45">                .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, Math.toIntExact(configuration.getConnectionTimeout()))</span>
+<span class="nc" id="L46">                .responseTimeout(Duration.ofMillis(configuration.getResponseTimeout()))</span>
+<span class="nc" id="L47">                .doOnConnected(conn -&gt; conn.addHandlerLast(new ReadTimeoutHandler(readTimeout, TimeUnit.MILLISECONDS)));</span>
 
-<span class="fc" id="L49">        ClientHttpConnector connector = new ReactorClientHttpConnector(httpClient);</span>
+<span class="nc" id="L49">        ClientHttpConnector connector = new ReactorClientHttpConnector(httpClient);</span>
 
-<span class="fc" id="L51">        WebClient client = WebClient.builder().defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)</span>
-<span class="fc" id="L52">                .clientConnector(connector).build();</span>
+<span class="nc" id="L51">        WebClient client = WebClient.builder().defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)</span>
+<span class="nc" id="L52">                .clientConnector(connector).build();</span>
 
-<span class="fc" id="L54">        return client.get()</span>
-<span class="fc" id="L55">                .uri(uriBuilder -&gt; uriBuilder.path(configuration.getHost().concat(SEARCH))</span>
-<span class="fc" id="L56">                        .queryParam(&quot;adults&quot;, request.getAdults()).queryParam(&quot;children&quot;, request.getChildren())</span>
-<span class="fc" id="L57">                        .queryParam(&quot;infants&quot;, request.getInfants()).queryParam(&quot;amount&quot;, request.getAmount())</span>
-<span class="fc" id="L58">                        .queryParam(&quot;departure&quot;, request.getDeparture()).queryParam(&quot;from&quot;, request.getFrom())</span>
-<span class="fc" id="L59">                        .queryParam(&quot;to&quot;, request.getTo()).build())</span>
-<span class="fc" id="L60">                .retrieve().onStatus(HttpStatus::isError, clientResponse -&gt; {</span>
+<span class="nc" id="L54">        return client.get()</span>
+<span class="nc" id="L55">                .uri(uriBuilder -&gt; uriBuilder.path(configuration.getHost().concat(SEARCH))</span>
+<span class="nc" id="L56">                        .queryParam(&quot;adults&quot;, request.getAdults()).queryParam(&quot;children&quot;, request.getChildren())</span>
+<span class="nc" id="L57">                        .queryParam(&quot;infants&quot;, request.getInfants()).queryParam(&quot;amount&quot;, request.getAmount())</span>
+<span class="nc" id="L58">                        .queryParam(&quot;departure&quot;, request.getDeparture()).queryParam(&quot;from&quot;, request.getFrom())</span>
+<span class="nc" id="L59">                        .queryParam(&quot;to&quot;, request.getTo()).build())</span>
+<span class="nc" id="L60">                .retrieve().onStatus(HttpStatus::isError, clientResponse -&gt; {</span>
 <span class="nc" id="L61">                    LOGGER.error(&quot;Error while calling endpoint {} with status code {}&quot;, SEARCH,</span>
 <span class="nc" id="L62">                            clientResponse.statusCode());</span>
 <span class="nc" id="L63">                    throw new TWAException(&quot;Error while calling catalog endpoint&quot;);</span>
-<span class="fc" id="L64">                }).toEntityList(ItineraryDTO.class).block().getBody();</span>
+<span class="nc" id="L64">                }).toEntityList(ItineraryDTO.class).block().getBody();</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

@@ -1,3 +1,9 @@
+com/twa/flights/api/clusters/architecture/general/GeneralCodingRulesTest.class
+com/twa/flights/api/clusters/architecture/constants/Constants.class
+com/twa/flights/api/clusters/architecture/rules/AccessFieldsRule.class
+com/twa/flights/api/clusters/controller/DocumentationControllerTest.class
+com/twa/flights/api/clusters/architecture/rules/AccessFieldsRule$1.class
+com/twa/flights/api/clusters/architecture/layers/DTORulesTest.class
 com/twa/flights/api/clusters/configuration/SwaggerConfigurationTest.class
 com/twa/flights/api/clusters/configuration/MapperFacadeConfigurationTest.class
-com/twa/flights/api/clusters/controller/DocumentationControllerTest.class
+com/twa/flights/api/clusters/architecture/layers/ResourcesRulesTest.class
